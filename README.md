@@ -1,2 +1,2 @@
 # 4Hire.Edu
-$ Hire Education
+4 Hire Education
