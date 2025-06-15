@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4Hire - Educational Curtain Intro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .curtain-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      z-index: 9999;
+      background: #fff;
+    }
+
+    .curtain {
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, #5fcf80 0%, #4bbf6a 100%);
+      transition: transform 0.9s ease-in-out, clip-path 0.9s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-curtain {
+      clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+      transform-origin: left center;
+    }
+
+    .right-curtain {
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+      transform-origin: right center;
+    }
+
+    .open-left {
+      transform: translateX(-100%) rotateY(15deg);
+      clip-path: polygon(0 0, 0 50%, 0 50%, 0 100%);
+    }
+
+    .open-right {
+      transform: translateX(100%) rotateY(-15deg);
+      clip-path: polygon(100% 0, 100% 50%, 100% 50%, 100% 100%);
+    }
+
+    .intro-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 3.5em;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 40px;
+      border-radius: 20px;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+      z-index: 10000;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    iframe.visible {
+      opacity: 1;
+    }
+
+    .floating-img {
+      position: absolute;
+      width: 50px;
+      animation: floatY 3s ease-in-out infinite alternate;
+      z-index: 9999;
+    }
+
+    .curtain.left-curtain .floating-img:nth-child(1) {
+      top: 20%;
+      left: 30%;
+    }
+    .curtain.left-curtain .floating-img:nth-child(2) {
+      top: 45%;
+      left: 10%;
+    }
+    .curtain.left-curtain .floating-img:nth-child(3) {
+      top: 70%;
+      left: 25%;
+    }
+
+    .curtain.right-curtain .floating-img:nth-child(1) {
+      top: 25%;
+      right: 30%;
+    }
+    .curtain.right-curtain .floating-img:nth-child(2) {
+      top: 50%;
+      right: 10%;
+    }
+    .curtain.right-curtain .floating-img:nth-child(3) {
+      top: 75%;
+      right: 25%;
+    }
+
+    @keyframes floatY {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="curtain-wrapper" id="curtainWrapper">
+    <div class="curtain left-curtain" id="leftCurtain">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" class="floating-img">
+      <img src="https://cdn-icons-png.flaticon.com/512/1484/1484851.png" class="floating-img">
+      <img src="https://cdn-icons-png.flaticon.com/512/4228/4228685.png" class="floating-img">
+    </div>
+
+    <div class="curtain right-curtain" id="rightCurtain">
+      <img src="https://cdn-icons-png.flaticon.com/512/3022/3022094.png" class="floating-img">
+      <img src="https://cdn-icons-png.flaticon.com/512/2827/2827988.png" class="floating-img">
+      <img src="https://cdn-icons-png.flaticon.com/512/3145/3145765.png" class="floating-img">
+    </div>
+
+    <div class="intro-text">Welcome to 4Hire</div>
+  </div>
+
+  <iframe src="home.html" id="siteFrame"></iframe>
+
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("leftCurtain").classList.add("open-left");
+        document.getElementById("rightCurtain").classList.add("open-right");
+
+        setTimeout(() => {
+          document.getElementById("curtainWrapper").style.display = "none";
+          document.body.style.overflow = "auto";
+          document.getElementById("siteFrame").classList.add("visible");
+        }, 900);
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
